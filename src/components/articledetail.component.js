@@ -19,7 +19,7 @@ export default class Home extends Component {
         this.setState({
           content: response.data
         })
-        ArticleService.getAllArticle().then(
+        ArticleService.getArticleById().then(
           response => {
             this.setState({
               article: response.data

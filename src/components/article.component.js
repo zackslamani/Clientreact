@@ -9,6 +9,11 @@ export default class Article extends Component {
     constructor(props) {
         super(props);
         this.handleArticle = this.handleArticle.bind(this);
+        this.onChangeTitle = this.onChangeTitle.bind(this);
+        this.onChangeCategory = this.onChangeCategory.bind(this);
+        this.onChangeContent = this.onChangeContent.bind(this);
+        this.onChangeImage = this.onChangeImage.bind(this);
+       // this.onChangeCreatedAt =this.changeCreatedAt.bind(this);
     
         this.state = {
             title:"",
@@ -21,6 +26,36 @@ export default class Article extends Component {
           redirect:null
         };
       }
+
+      onChangeTitle(e) {
+        this.setState({
+          title: e.target.value
+        });
+      }
+    
+      onChangeCategory(e) {
+        this.setState({
+          category: e.target.value
+        });
+      }
+
+      onChangeContent(e) {
+        this.setState({
+          content: e.target.value
+        });
+      }
+
+      onChangeImage(e) {
+        this.setState({
+          image: e.target.value
+        });
+      }
+      onChangeCreatedAt(e) {
+        this.setState({
+          createdAt: e.target.value
+        });
+      }
+ 
 
 
       handleArticle(e) {
@@ -36,11 +71,15 @@ export default class Article extends Component {
         
           ArticleService.postArticle(
             this.state.title,
+            this.state.category,
             this.state.content,
+            this.state.image,
+            this.state.createdAt
+
           ).then(
             response => {
               this.setState({
-                message: "article créé"+response.data.title,
+                message: "article créé",
                 successful: true
               });
             },
@@ -51,7 +90,7 @@ export default class Article extends Component {
                   error.response.data.message) ||
                 error.message ||
                 error.toString();
-    
+                    console.log(error);
               this.setState({
                 successful: false,
                 message: resMessage

@@ -2,46 +2,40 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 
-const API_URL = 'http://localhost:8090/article';
+const API_URL = 'http://localhost:8090/comments';
 
 let accessToken = authHeader();
-let str = accessToken;
+let str = JSON.stringify(accessToken);
 console.log("acces : "+str);
-class ArticleService {
+
+class CommentService {
 
   // On post un article
   // param : title, category, content, image, createdAt
-  postArticle(title, category, content, image, createdAt) {
+  postComment(title, category, content, image, createdAt) {
     return axios 
     .post(API_URL + "/", {
-        title,
-        category,
-        content,
-        image,
-        createdAt
+        author,
+        content
       }, 
       { 
-        headers: str
+        headers: JSON.stringify(authHeader())
       })
       .then(response => {
-          console.log("fgfgf")
-          console.log(response)
         if (response.data) {  
           // Condition de traitement des données
         }
 
         return response.data;
-      }).catch (err =>
-          console.log(err)
-      );
+      });
   }
 
   // On récupère tous les articles
-  getAllArticle() {
+  getAllComment() {
     return axios
       .get(API_URL + '/', 
         { 
-          headers: str
+          headers: JSON.stringify(authHeader())
         })
         .then(response => {
           if (response.data) {  
@@ -54,7 +48,7 @@ class ArticleService {
 
   // On récupère l'article par id
   // param : id
-  getArticleById(id) {
+  getCommentById(id) {
     return axios
     .get(API_URL + '/', 
         { 
@@ -74,15 +68,12 @@ class ArticleService {
 
   // On modifie un article
   // param : id
-  putArticleById(id, title, category, content, image, createdAt) {
+  putCommentById(id, author, content) {
     return axios
     .put(API_URL + '/' + id, 
         { 
-          title,
-          category,
-          content,
-          image,
-          createdAt
+          author,
+          content
         },
         { 
           headers: JSON.stringify(authHeader())
@@ -98,15 +89,12 @@ class ArticleService {
 
    // On supprime un article
   // param : id
-  deleteArticleById(id, title, category, content, image, createdAt) {
+  deleteCommentById(id, author, content) {
     return axios
     .delete(API_URL + '/' + id, 
         { 
-          title,
-          category,
-          content,
-          image,
-          createdAt
+          author,
+          content
         },
         { 
           headers: JSON.stringify(authHeader())
@@ -122,4 +110,4 @@ class ArticleService {
 
 }
 
-export default new ArticleService();
+export default new CommentService();

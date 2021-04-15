@@ -13,6 +13,7 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import Article from "./components/article.component";
+import ArticleDetail from "./components/articledetail.component";
 
 class App extends Component {
   constructor(props) {
@@ -131,6 +132,8 @@ class App extends Component {
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/article" component={Article} />
+            <Route path="/article/:slug" component={ArticleDetail} />
+
           </Switch>
         </div>
       </div>

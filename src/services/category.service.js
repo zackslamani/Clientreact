@@ -2,46 +2,40 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 
-const API_URL = 'http://localhost:8090/article';
+const API_URL = 'http://localhost:8090/category';
 
 let accessToken = authHeader();
-let str = accessToken;
+let str = JSON.stringify(accessToken);
 console.log("acces : "+str);
-class ArticleService {
 
-  // On post un article
+class CategoryService {
+
+  // On post un category
   // param : title, category, content, image, createdAt
-  postArticle(title, category, content, image, createdAt) {
+  postCategory(title, description) {
     return axios 
     .post(API_URL + "/", {
         title,
-        category,
-        content,
-        image,
-        createdAt
+        description
       }, 
       { 
-        headers: str
+        headers: JSON.stringify(authHeader())
       })
       .then(response => {
-          console.log("fgfgf")
-          console.log(response)
         if (response.data) {  
           // Condition de traitement des données
         }
 
         return response.data;
-      }).catch (err =>
-          console.log(err)
-      );
+      });
   }
 
-  // On récupère tous les articles
-  getAllArticle() {
+  // On récupère tous les categorys
+  getAllCategory() {
     return axios
       .get(API_URL + '/', 
         { 
-          headers: str
+          headers: JSON.stringify(authHeader())
         })
         .then(response => {
           if (response.data) {  
@@ -52,9 +46,9 @@ class ArticleService {
         });
   }
 
-  // On récupère l'article par id
+  // On récupère l'category par id
   // param : id
-  getArticleById(id) {
+  getCategoryById(id) {
     return axios
     .get(API_URL + '/', 
         { 
@@ -72,17 +66,14 @@ class ArticleService {
     });
   }
 
-  // On modifie un article
+  // On modifie un category
   // param : id
-  putArticleById(id, title, category, content, image, createdAt) {
+  putCategoryById(id, author, content) {
     return axios
     .put(API_URL + '/' + id, 
         { 
-          title,
-          category,
-          content,
-          image,
-          createdAt
+        title,
+        description
         },
         { 
           headers: JSON.stringify(authHeader())
@@ -96,17 +87,14 @@ class ArticleService {
     });
   }
 
-   // On supprime un article
+   // On supprime un category
   // param : id
-  deleteArticleById(id, title, category, content, image, createdAt) {
+  deleteCategoryById(id, author, content) {
     return axios
     .delete(API_URL + '/' + id, 
         { 
-          title,
-          category,
-          content,
-          image,
-          createdAt
+        title,
+        description
         },
         { 
           headers: JSON.stringify(authHeader())
@@ -122,4 +110,4 @@ class ArticleService {
 
 }
 
-export default new ArticleService();
+export default new CategoryService();
