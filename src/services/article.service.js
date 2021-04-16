@@ -12,8 +12,10 @@ class ArticleService {
   // On post un article
   // param : title, category, content, image, createdAt
   postArticle(title, category, content, image, createdAt) {
+      category = null;
+      createdAt = new Date();
     return axios 
-    .post(API_URL + "/", {
+    .post(API_URL + '/', {
         title,
         category,
         content,
